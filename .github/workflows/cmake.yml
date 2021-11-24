@@ -16,7 +16,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout submodules
+      run: git submodule update --init --recursive
+    - name: Setup libVLC
+      run: |
+        apt-get update
+        DEBIAN_FRONTEND=noninteractive
+        apt-get install -y git build-essential pkg-config libtool automake autopoint gettext
+        apt-get install -y subversion yasm cvs cmake ragel
+        apt-get install -y flex bison libavcodec-dev libavformat-dev libswscale-dev liba52-0.7.4-dev libasound2-dev
 
+        # Windows 64 cross
+        apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
+    - name: Compile libVLC
+      run: |
+        cd vlc
+        ./bootstrap
+        ./configure --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared
+        make
+        make install
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
