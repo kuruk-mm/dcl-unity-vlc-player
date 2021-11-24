@@ -20,14 +20,14 @@ jobs:
       run: git submodule update --init --recursive
     - name: Setup libVLC
       run: |
-        apt-get update
+        sudo apt-get update
         DEBIAN_FRONTEND=noninteractive
-        apt-get install -y git build-essential pkg-config libtool automake autopoint gettext
-        apt-get install -y subversion yasm cvs cmake ragel
-        apt-get install -y flex bison libavcodec-dev libavformat-dev libswscale-dev liba52-0.7.4-dev libasound2-dev
+        sudo apt-get install -y git build-essential pkg-config libtool automake autopoint gettext
+        sudo apt-get install -y subversion yasm cvs cmake ragel
+        sudo apt-get install -y flex bison libavcodec-dev libavformat-dev libswscale-dev liba52-0.7.4-dev libasound2-dev
 
         # Windows 64 cross
-        apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
+        sudo apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
     - name: Compile libVLC
       run: |
         cd vlc
