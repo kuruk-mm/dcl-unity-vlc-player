@@ -16,8 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Checkout submodules
-      run: git submodule update --init --recursive
+    - name: Clone vlc
+      run: git clone https://github.com/videolan/vlc
     - name: Setup libVLC
       run: |
         sudo apt-get update
