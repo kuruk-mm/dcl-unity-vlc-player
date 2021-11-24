@@ -25,7 +25,6 @@ jobs:
         sudo apt-get install -y git build-essential pkg-config libtool automake autopoint gettext
         sudo apt-get install -y subversion yasm cvs cmake ragel
         sudo apt-get install -y flex bison libavcodec-dev libavformat-dev libswscale-dev liba52-0.7.4-dev libasound2-dev
-        sudo apt-get install -y libmesa-dev
 
         # Windows 64 cross
         sudo apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
@@ -33,7 +32,7 @@ jobs:
       run: |
         cd vlc
         ./bootstrap
-        ./configure --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared
+        ./configure --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         make
         make install
     - name: Configure CMake
