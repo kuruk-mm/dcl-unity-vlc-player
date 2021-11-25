@@ -30,13 +30,26 @@ jobs:
         sudo apt-get install -y flex bison libavcodec-dev libavformat-dev libswscale-dev liba52-0.7.4-dev libasound2-dev
         sudo apt-get install -y mesa-common-dev
 
-        # Windows 64 cross
+        # Windows 32bits and 64bits cross
+        sudo apt-get install -y gcc-mingw-w64-i686 g++-mingw-w64-i686 mingw-w64-tools
         sudo apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
-    - name: Compile libVLC
+    - name: Compile libVLC Windows
       run: |
         cd vlc
-        ./bootstrap
-        ./configure --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
+        mkdir -p win-build/
+        cd win-build
+        ../bootstrap
+        ../extras/package/win32/configure.sh --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu
+        ../configure --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
+        make
+        sudo make install
+    - name: Compile libVLC Linux
+      run: |
+        cd vlc
+        mkdir -p linux-build/
+        cd linux-build
+        ../bootstrap
+        ../configure --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         make
         sudo make install
     - name: Configure CMake
