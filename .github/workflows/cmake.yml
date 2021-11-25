@@ -33,12 +33,22 @@ jobs:
         # Windows 32bits and 64bits cross
         sudo apt-get install -y gcc-mingw-w64-i686 g++-mingw-w64-i686 mingw-w64-tools
         sudo apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
+        sudo apt-get install -y subversion yasm cvs cmake ragel autopoint
+    - name: Compile libVLC (ThirdParty) Windows
+      run: |
+        cd vlc
+        mkdir -p contrib/win32
+        cd contrib/win32
+        ../bootstrap --host=HOST-TRIPLET
+        make fetch
+        make
+        rm -f ../i686-w64-mingw32/bin/moc ../i686-w64-mingw32/bin/uic ../i686-w64-mingw32/bin/rcc
     - name: Compile libVLC Windows
       run: |
         cd vlc
-        mkdir -p win-build/
-        cd win-build
-        ../bootstrap --host=HOST-TRIPLET
+        ./bootstrap
+        mkdir -p win32/ && cd win32
+        export PKG_CONFIG_LIBDIR=$HOME/vlc/contrib/HOST-TRIPLET/lib/pkgconfig
         ../extras/package/win32/configure.sh --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu
         ../configure --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         make
