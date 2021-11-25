@@ -38,7 +38,7 @@ jobs:
         cd vlc
         mkdir -p win-build/
         cd win-build
-        ../bootstrap
+        ../bootstrap --host=HOST-TRIPLET
         ../extras/package/win32/configure.sh --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu
         ../configure --host=HOST-TRIPLET --build=x86_64-pc-linux-gnu --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         make
