@@ -53,7 +53,7 @@ jobs:
         ./bootstrap
         mkdir -p win32/ && cd win32
         export PKG_CONFIG_LIBDIR=$HOME/vlc/contrib/x86_64-w64-mingw32/lib/pkgconfig
-        ../extras/package/win32/configure.sh --host=x86_64-w64-mingw32 --build=x86_64-pc-linux-gnu
+        ../extras/package/win32/configure.sh --host=x86_64-w64-mingw32 --build=x86_64-pc-linux-gnu --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         ../configure --host=x86_64-w64-mingw32 --build=x86_64-pc-linux-gnu --disable-lua --disable-xcb --disable-qt --enable-static --disable-vlc --disable-shared --disable-glx
         make
         sudo make install
