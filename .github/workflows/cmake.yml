@@ -38,15 +38,15 @@ jobs:
         sudo apt-get install -y cvs meson gperf
         sudo apt-get install -y wine64-development-tools libwine-dev zip p7zip nsis bzip2
         sudo apt-get install -y ant default-jdk protobuf-compiler dos2unix
-    - name: Compile libVLC (ThirdParty) Windows
-      run: |
-        cd vlc
-        mkdir -p contrib/win32
-        cd contrib/win32
-        ../bootstrap --host=x86_64-w64-mingw32
-        make fetch
-        make
-        rm -f ../i686-w64-mingw32/bin/moc ../i686-w64-mingw32/bin/uic ../i686-w64-mingw32/bin/rcc
+    # - name: Compile libVLC (ThirdParty) Windows
+    #   run: |
+    #     cd vlc
+    #     mkdir -p contrib/win32
+    #     cd contrib/win32
+    #     ../bootstrap --host=x86_64-w64-mingw32
+    #     make fetch
+    #     make
+    #     rm -f ../i686-w64-mingw32/bin/moc ../i686-w64-mingw32/bin/uic ../i686-w64-mingw32/bin/rcc
     - name: Compile libVLC Windows
       run: |
         cd vlc
